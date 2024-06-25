@@ -1,4 +1,4 @@
-name: Slack Alarm Webhook
+name: Slack PR Webhook
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ jobs:
     name: Slack PR Webhook
     runs-on: ubuntu-latest
     steps:
-      - name: Set Status based on PR type
+      - name: Set Status
         id: status
         run: |
           if [ "${{ github.event.action }}" == "opened" ]; then
@@ -18,7 +18,7 @@ jobs:
             echo "::set-output name=footer::[CLOSE]"
           fi
 
-      - name: Send notification to Slack
+      - name: Send Webhook
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
