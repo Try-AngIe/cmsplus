@@ -15,45 +15,20 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
+        # Constructing a custom message based on the event action
         with:
           args: |
-            {{
+            {
+              "text": "Pull Request #${{ github.event.pull_request.number }} ${{
+                github.event.action == 'opened' ? 'opened' : 'closed'
+              }}",
               "attachments": [
                 {
-                  "color": "{{#if eq github.event_name 'pull_request'}}{{#if eq github.event.action 'opened'}}good{{else}}warning{{/if}}{{else}}danger{{/if}}",
+                  "color": "${{ github.event.action == 'opened' ? 'good' : 'warning' }}",
                   "author_name": "Pull Request Event",
-                  "title": "Pull Request #{{ github.event.pull_request.number }}",
-                  "title_link": "{{ github.event.pull_request.html_url }}",
-                  "text": "{{#if eq github.event.action 'opened'}}OPEN{{else}}CLOSE{{/if}}"
+                  "title": "Pull Request #${{ github.event.pull_request.number }}",
+                  "title_link": "${{ github.event.pull_request.html_url }}",
+                  "text": "${{ github.event.action == 'opened' ? 'OPEN' : 'CLOSE' }}"
                 }
               ]
-            }}
-
-
-
-
-# name: Slack Alarm Webhook
-
-# on:
-#   pull_request:
-#     # types: [opened, reopened, edited, closed, review_requested]
-#     types: [opened, closed]
-
-#   # pull_request_review:
-#   #   types: [submitted]
-#   # pull_request_review_comment:
-#   #   types: [created, edited]
-
-# jobs:
-#   mention_notification:
-#     name: Mention Notification
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Send notification to Slack
-#         uses: rtCamp/action-slack-notify@master
-#         env:
-#           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-#           SLACK_USERNAME: 'GitHub Actions'
-#           SLACK_ICON_EMOJI: ':github:'
-#         with:
-#           args: ${{ toJson(github.event) }}
+            }
