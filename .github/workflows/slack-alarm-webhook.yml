@@ -13,8 +13,33 @@ jobs:
     name: Mention Notification
     runs-on: ubuntu-latest
     steps:
-      - uses: Laurenfrost/mention-to-slack@latest
+      - name: Send notification to Slack
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_USERNAME: 'GitHub Actions'
+          SLACK_ICON_EMOJI: ':github:'
         with:
-          configuration-path: .github/mention-to-slack.yml
-          repo-token: ${{ secrets.CMSPLUS_TOKEN }}
-          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          args: ${{ toJson(github.event) }}
+
+
+# name: Slack Alarm Webhook
+
+# on:
+#   pull_request:
+#     types: [opened, reopened, edited, closed, review_requested]
+#   pull_request_review:
+#     types: [submitted]
+#   pull_request_review_comment:
+#     types: [created, edited]
+
+# jobs:
+#   mention_notification:
+#     name: Mention Notification
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: Laurenfrost/mention-to-slack@latest
+#         with:
+#           configuration-path: .github/mention-to-slack.yml
+#           repo-token: ${{ secrets.CMSPLUS_TOKEN }}
+#           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
