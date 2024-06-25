@@ -2,25 +2,23 @@ name: Slack Alarm Webhook
 
 on:
   pull_request:
-    # types: [opened, reopened, edited, closed, review_requested]
     types: [opened, closed]
-
-  # pull_request_review:
-  #   types: [submitted]
-  # pull_request_review_comment:
-  #   types: [created, edited]
 
 jobs:
   mention_notification:
     name: Mention Notification
     runs-on: ubuntu-latest
     steps:
+      - name: Determine PR state
+        id: pr_state
+        run: echo "::set-output name=state::${{ github.event_name }}"
+
       - name: Send notification to Slack
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
-          SLACK_FOOTER: "OPEN"
+          SLACK_FOOTER: ${{ if eq(steps.pr_state.outputs.state, 'pull_request') }}[OPEN]${{ else }}[CLOSE]${{ endif }}
         with:
           args: ${{ toJson(github.event) }}
