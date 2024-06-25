@@ -5,12 +5,12 @@ on:
     types: [opened, closed]
 
 jobs:
-  mention_notification:
-    name: Mention Notification
+  slack_pr_webhook:
+    name: Slack PR Webhook
     runs-on: ubuntu-latest
     steps:
-      - name: Set Footer based on PR type
-        id: set-footer
+      - name: Set Status based on PR type
+        id: status
         run: |
           if [ "${{ github.event.action }}" == "opened" ]; then
             echo "::set-output name=footer::[OPEN]"
@@ -24,4 +24,4 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
-          SLACK_FOOTER: ${{ steps.set-footer.outputs.footer }}
+          SLACK_FOOTER: ${{ steps.status.outputs.footer }}
