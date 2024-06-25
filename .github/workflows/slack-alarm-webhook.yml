@@ -9,9 +9,18 @@ jobs:
     name: Mention Notification
     runs-on: ubuntu-latest
     steps:
-      - name: Determine PR state
-        id: pr_state
-        run: echo "::set-output name=state::${{ github.event_name }}"
+      - name: Set Footer based on PR type
+        id: set-footer
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            if [ "${{ github.event.action }}" == "opened" ]; then
+              echo "OPEN"
+            elif [ "${{ github.event.action }}" == "closed" ]; then
+              echo "CLOSE"
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Send notification to Slack
         uses: rtCamp/action-slack-notify@master
@@ -19,6 +28,6 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
-          SLACK_FOOTER: ${{ if eq(steps.pr_state.outputs.state, 'pull_request') }}[OPEN]${{ else }}[CLOSE]${{ endif }}
+          SLACK_FOOTER: ${{ steps.set-footer.outputs.stdout }}
         with:
           args: ${{ toJson(github.event) }}
