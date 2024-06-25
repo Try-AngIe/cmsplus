@@ -1,8 +1,8 @@
 ---
-name: "🐞 Hotfix"
-about: Hotfix 작업 사항을 입력해주세요.
+name: "📈 Perf"
+about: 'Perf 작업 사항을 입력해주세요.'
 title: ''
-labels: 'hotfix'
+labels: 'perf'
 assignees: ''
 ---
 

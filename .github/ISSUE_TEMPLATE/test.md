@@ -1,8 +1,8 @@
 ---
-name: "✅ Feat"
-about: 'Feat 작업 사항을 입력해주세요.'
+name: "📖 Test"
+about: 'Test 작업 사항을 입력해주세요.'
 title: ''
-labels: 'feat'
+labels: 'test'
 assignees: ''
 ---
 
