@@ -1,3 +1,82 @@
+# jobs:
+#   mention_notification:
+#     name: Mention Notification
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+      
+#       - name: Set Slack message
+#         id: slack-message
+#         run: |
+#           if [ "${{ github.event.action }}" == "opened" ]; then
+#             echo "::set-output name=message::Pull Request Opened: ${{ github.event.pull_request.title }} by ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.html_url }}"
+#           elif [ "${{ github.event.action }}" == "closed" ]; then
+#             echo "::set-output name=message::Pull Request Closed: ${{ github.event.pull_request.title }} by ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.html_url }}"
+#           fi
+
+#       - name: Send notification to Slack
+#         uses: rtCamp/action-slack-notify@master
+#         env:
+#           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+#           SLACK_USERNAME: 'GitHub Actions'
+#           SLACK_ICON_EMOJI: ':github:'
+#         with:
+#           args: ${{ steps.slack-message.outputs.message }}
+
+# name: Slack Alarm Webhook
+
+# on:
+#   pull_request:
+#     types: [opened, reopened, edited, closed, review_requested]
+#   pull_request_review:
+#     types: [submitted]
+#   pull_request_review_comment:
+#     types: [created, edited]
+
+# jobs:
+#   mention_notification:
+#     name: Mention Notification
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+      
+#       - name: Set Slack message
+#         id: slack-message
+#         run: |
+#           if [ "${{ github.event.action }}" == "opened" ]; then
+#             MESSAGE=":tada: *New Pull Request Opened* :tada:\n"
+#             MESSAGE+="*Title:* ${{ github.event.pull_request.title }}\n"
+#             MESSAGE+="*Author:* ${{ github.event.pull_request.user.login }}\n"
+#             MESSAGE+="*URL:* ${{ github.event.pull_request.html_url }}\n"
+#           elif [ "${{ github.event.action }}" == "closed" ]; then
+#             if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+#               MESSAGE=":white_check_mark: *Pull Request Merged* :white_check_mark:\n"
+#             else
+#               MESSAGE=":x: *Pull Request Closed* :x:\n"
+#             fi
+#             MESSAGE+="*Title:* ${{ github.event.pull_request.title }}\n"
+#             MESSAGE+="*Author:* ${{ github.event.pull_request.user.login }}\n"
+#             MESSAGE+="*URL:* ${{ github.event.pull_request.html_url }}\n"
+#           else
+#             MESSAGE="*Pull Request Updated*\n"
+#             MESSAGE+="*Title:* ${{ github.event.pull_request.title }}\n"
+#             MESSAGE+="*Author:* ${{ github.event.pull_request.user.login }}\n"
+#             MESSAGE+="*URL:* ${{ github.event.pull_request.html_url }}\n"
+#           fi
+#           echo "::set-output name=message::$MESSAGE"
+
+#       - name: Send notification to Slack
+#         uses: rtCamp/action-slack-notify@master
+#         env:
+#           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+#           SLACK_USERNAME: 'GitHub Actions'
+#           SLACK_ICON_EMOJI: ':github:'
+#         with:
+#           args: ${{ steps.slack-message.outputs.message }}
+
+
 name: Slack Alarm Webhook
 
 on:
