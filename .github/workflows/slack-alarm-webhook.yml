@@ -16,19 +16,28 @@ jobs:
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
         # Constructing a custom message based on the event action
-        with:
-          args: |
-            {
-              "text": "Pull Request #${{ github.event.pull_request.number }} ${{
-                github.event.action == 'opened' ? 'opened' : 'closed'
-              }}",
-              "attachments": [
+        steps:
+          - name: Set PR status
+            id: pr_status
+            run: |
+              if [ ${{ github.event.action }} == 'opened' ]; then
+                echo "::set-output name=status::OPEN"
+              else
+                echo "::set-output name=status::CLOSE"
+              fi
+          - name: Send Slack notification
+            uses: rtCamp/action-slack-notify@master
+            with:
+              args: |
                 {
-                  "color": "${{ github.event.action == 'opened' ? 'good' : 'warning' }}",
-                  "author_name": "Pull Request Event",
-                  "title": "Pull Request #${{ github.event.pull_request.number }}",
-                  "title_link": "${{ github.event.pull_request.html_url }}",
-                  "text": "${{ github.event.action == 'opened' ? 'OPEN' : 'CLOSE' }}"
+                  "text": "Pull Request #${{ github.event.pull_request.number }} ${{ steps.pr_status.outputs.status }}",
+                  "attachments": [
+                    {
+                      "color": "${{ github.event.action == 'opened' ? 'good' : 'warning' }}",
+                      "author_name": "Pull Request Event",
+                      "title": "Pull Request #${{ github.event.pull_request.number }}",
+                      "title_link": "${{ github.event.pull_request.html_url }}",
+                      "text": "${{ steps.pr_status.outputs.status }}"
+                    }
+                  ]
                 }
-              ]
-            }
