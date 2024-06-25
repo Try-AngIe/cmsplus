@@ -1,0 +1,33 @@
+name: Sync Dev to QA
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: dev
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Fetch all branches
+      run: git fetch --all
+
+    - name: Merge dev into qa
+      run: |
+        git checkout qa
+        git merge dev --no-ff --commit -m "[Automated merge from dev to qa]"
+    
+    - name: Push changes to qa
+      run: |
+        git push origin qa
