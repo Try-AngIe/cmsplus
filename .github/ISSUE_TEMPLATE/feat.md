@@ -1,6 +1,6 @@
 ---
 name: "✅ Feat"
-about: Feat 작업 사항을 입력해주세요.
+about: ''
 title: ''
 labels: 'feat'
 assignees: ''
