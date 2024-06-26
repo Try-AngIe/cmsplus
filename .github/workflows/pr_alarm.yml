@@ -13,10 +13,10 @@ jobs:
         id: status
         run: |
           if [ "${{ github.event.action }}" == "opened" ]; then
-            echo "::set-output name=message::[OPEN] https://github.com/Try-AngIe/cms-plus/pulls"
+            echo "::set-output name=message::[OPEN]\n https://github.com/Try-AngIe/cms-plus/pulls"
             echo "::set-output name=footer::customed by 김상훈"
           elif [ "${{ github.event.action }}" == "closed" ]; then
-            echo "::set-output name=message::[CLOSE] https://github.com/Try-AngIe/cms-plus/pulls"
+            echo "::set-output name=message::[CLOSE]\n https://github.com/Try-AngIe/cms-plus/pulls"
             echo "::set-output name=footer::customed by 김상훈"
           fi
 
