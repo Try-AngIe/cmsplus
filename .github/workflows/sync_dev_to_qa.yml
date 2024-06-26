@@ -23,11 +23,11 @@ jobs:
     - name: Fetch all branches
       run: git fetch --all
 
-    - name: Merge dev into qa
+    - name: Merge dev into qa with theirs strategy
       run: |
         git checkout qa
-        git merge dev --no-ff --allow-unrelated-histories --commit -m "[Automated merge from dev to qa]"
-    
+        git merge dev --strategy-option theirs
+
     - name: Push changes to qa
       run: |
         git push origin qa
