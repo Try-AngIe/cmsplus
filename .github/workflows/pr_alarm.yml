@@ -13,9 +13,11 @@ jobs:
         id: status
         run: |
           if [ "${{ github.event.action }}" == "opened" ]; then
-            echo "::set-output name=footer::[OPEN]"
+            echo "::set-output name=message::[OPEN] https://github.com/Try-AngIe/cms-plus/pulls"
+            echo "::set-output name=footer::customed by 김상훈"
           elif [ "${{ github.event.action }}" == "closed" ]; then
-            echo "::set-output name=footer::[CLOSE]"
+            echo "::set-output name=message::[CLOSE] https://github.com/Try-AngIe/cms-plus/pulls"
+            echo "::set-output name=footer::customed by 김상훈"
           fi
 
       - name: Alarm
@@ -25,6 +27,6 @@ jobs:
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
           SLACK_FOOTER: ${{ steps.status.outputs.footer }}
-          SLACK_MESSAGE: ${{ steps.status.outputs.footer }}
+          SLACK_MESSAGE: ${{ steps.status.outputs.message }}
 
           
