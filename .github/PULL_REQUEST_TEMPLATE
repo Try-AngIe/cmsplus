@@ -1,21 +1,13 @@
 ## TYPE
-<table>
-  <tr>
-    <td>- [ ] ✅ Feat</td>
-    <td>- [ ] 🔧 Fix</td>
-    <td>- [ ] ✨ Style</td>
-  </tr>
-  <tr>
-    <td>- [ ] 📖 Test</td>
-    <td>- [ ] 📝 Refactor</td>
-    <td>- [ ] 📈 Perf</td>
-  </tr>
-  <tr>
-    <td>- [ ] 📂 Docs</td>
-    <td>- [ ] 🅱 Build</td>
-    <td>- [ ] 🔄 CI</td>
-  </tr>
-</table>
+- [ ] ✅ Feat
+- [ ] 🔧 Fix
+- [ ] ✨ Style
+- [ ] 📖 Test
+- [ ] 📝 Refactor
+- [ ] 📈 Perf
+- [ ] 📂 Docs
+- [ ] 🅱 Build
+- [ ] 🔄 CI
 
 ## DESCRIPTION
 - 
