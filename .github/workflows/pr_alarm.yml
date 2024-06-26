@@ -25,3 +25,6 @@ jobs:
           SLACK_USERNAME: 'GitHub Actions'
           SLACK_ICON_EMOJI: ':github:'
           SLACK_FOOTER: ${{ steps.status.outputs.footer }}
+          SLACK_MESSAGE: ${{ steps.status.outputs.footer }}
+
+          
