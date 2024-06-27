@@ -37,4 +37,3 @@ jobs:
       run: |
         git remote set-url origin https://${{ secrets.SYNC_TOKEN }}@github.com/Try-AngIe/cms-plus.git
         git push origin rel
-
