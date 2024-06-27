@@ -21,19 +21,24 @@ jobs:
           echo "::set-output name=commit_regex::$commit_msg_regex"
 
       - name: Validate Commit Message
+        id: validate_commit_message
         run: |
           commit_msg=$(git log --format=%B -n 1 ${{ github.sha }})
           echo "Commit Message: $commit_msg"
           commit_regex="${{ steps.read_commit_regex.outputs.commit_regex }}"
           if [[ ! "$commit_msg" =~ $commit_regex ]]; then
             echo "Invalid commit message format."
-            exit 1
+            echo "::set-output name=valid_commit::false"
           else
             echo "Commit message is valid."
+            echo "::set-output name=valid_commit::true"
           fi
 
-      - name: Block push to dev branch if commit message is invalid
-        if: ${{ github.ref == 'refs/heads/dev' && failure() }}
+      - name: Cancel Push if Commit Message Invalid
+        if: steps.validate_commit_message.outputs.valid_commit == 'false'
         run: |
-          echo "Commit message validation failed. Push to dev branch blocked."
-          exit 1
+          git push --delete origin ${{ github.ref }}
+
+          # Optionally, you might want to notify someone or log the action taken
+          echo "Push canceled due to invalid commit message."
+
