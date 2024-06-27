@@ -9,7 +9,7 @@ jobs:
     name: PR Alarm
     runs-on: ubuntu-latest
     steps:
-      - name: PR Status
+      - name: Check PR Status
         id: status
         run: |
           echo "::set-output name=footer::customed by 김상훈"
@@ -19,7 +19,7 @@ jobs:
             echo "::set-output name=message::[CLOSE] https://github.com/Try-AngIe/cms-plus/pulls"
           fi
 
-      - name: Alarm
+      - name: Push Alarm
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
