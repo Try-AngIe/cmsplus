@@ -1,19 +1,20 @@
-name: Sync Dev to Rel
+name: Sync Main to Rel
 
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout main branch
       uses: actions/checkout@v2
       with:
-        ref: dev
+        ref: main
+        fetch-depth: 0
 
     - name: Set up Git
       run: |
@@ -21,13 +22,16 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
     - name: Fetch all branches
-      run: git fetch --all
+      run: git fetch origin
 
-    - name: Merge dev into rel with theirs strategy
+    - name: Checkout rel branch
+      run: git checkout -b rel origin/rel
+
+    - name: Merge main into rel
       run: |
-        git checkout rel
-        
+        git merge main --strategy-option theirs
 
     - name: Push changes to rel
-      run: |
-        git push origin rel
+      env:
+        GITHUB_TOKEN: ${{ secrets.CMSPLUS_TOKEN }}
+      run: git push origin rel
