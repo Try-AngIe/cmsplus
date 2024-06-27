@@ -18,6 +18,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set Up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
       - name: Read Commit Regular Expression
         id: read_commit_regex
         run: |
@@ -44,5 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
         if: steps.validate_commit_message.outputs.valid_commit == 'false'
         run: |
+          git remote set-url origin https://${{ secrets.SYNC_TOKEN }}@github.com/Try-AngIe/cms-plus.git
           git push --delete origin ${{ github.ref }}
 
