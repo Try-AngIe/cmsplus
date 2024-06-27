@@ -5,6 +5,11 @@ on:
     branches:
       - '*'
 
+permissions: #github actions bot에게 권한 열기
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   commit_message_check:
     runs-on: ubuntu-latest
@@ -35,10 +40,9 @@ jobs:
           fi
 
       - name: Cancel Push if Commit Message Invalid
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
         if: steps.validate_commit_message.outputs.valid_commit == 'false'
         run: |
           git push --delete origin ${{ github.ref }}
-
-          # Optionally, you might want to notify someone or log the action taken
-          echo "Push canceled due to invalid commit message."
 
