@@ -1,6 +1,9 @@
 name: Commit Message Check
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
 
 jobs:
   commit_message_check:
@@ -28,3 +31,9 @@ jobs:
           else
             echo "Commit message is valid."
           fi
+
+      - name: Block push to dev branch if commit message is invalid
+        if: ${{ github.ref == 'refs/heads/dev' && failure() }}
+        run: |
+          echo "Commit message validation failed. Push to dev branch blocked."
+          exit 1
