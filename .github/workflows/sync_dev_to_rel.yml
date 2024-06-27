@@ -1,19 +1,19 @@
-name: Sync Main to Rel
+name: Sync Dev to Rel
 
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout main branch
+    - name: Checkout dev branch
       uses: actions/checkout@v2
       with:
-        ref: main
+        ref: dev
         fetch-depth: 0
 
     - name: Set up Git
@@ -27,9 +27,9 @@ jobs:
     - name: Checkout rel branch
       run: git checkout -b rel origin/rel
 
-    - name: Merge main into rel
+    - name: Merge dev into rel
       run: |
-        git merge main --strategy-option theirs
+        git merge dev --strategy-option theirs
 
     - name: Push changes to rel
       env:
