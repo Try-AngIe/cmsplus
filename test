@@ -5,3 +5,5 @@
 4. PR 생성 및 자동알람
 5. PR 허용 -> dev로 merge됨
 6. dev에 변경사항이 일어나면 rel로 자동으로 merge됨
+
+test
