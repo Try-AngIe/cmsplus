@@ -33,5 +33,5 @@ jobs:
 
     - name: Push changes to rel
       env:
-        GITHUB_TOKEN: ${{ secrets.CMSPLUS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
       run: git push origin rel
