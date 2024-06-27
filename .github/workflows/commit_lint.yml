@@ -1,32 +1,27 @@
-name: Commit Message Check
+name: Rollback Invalid Commit
 
 on:
   push:
     branches:
       - '*'
 
-permissions: #github actions bot에게 권한 열기
+permissions:
   contents: write
-  pages: write
+  pull-requests: write
   id-token: write
 
 jobs:
-  commit_message_check:
+  rollback_commit:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set Up Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
       - name: Read Commit Regular Expression
         id: read_commit_regex
         run: |
-          commit_msg_regex=$(cat ./.github/commit_lint.txt)
+          commit_msg_regex=$(cat .github/commit_lint.txt)
           echo "Commit Regular Expression: $commit_msg_regex"
           echo "::set-output name=commit_regex::$commit_msg_regex"
 
@@ -38,17 +33,15 @@ jobs:
           commit_regex="${{ steps.read_commit_regex.outputs.commit_regex }}"
           if [[ ! "$commit_msg" =~ $commit_regex ]]; then
             echo "Invalid commit message format."
-            echo "::set-output name=valid_commit::false"
+            exit 1
           else
             echo "Commit message is valid."
-            echo "::set-output name=valid_commit::true"
           fi
 
-      - name: Cancel Push if Commit Message Invalid
-        env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
-        if: steps.validate_commit_message.outputs.valid_commit == 'false'
+      - name: Rollback Invalid Commit
+        if: failure() # 이전 단계에서 실패한 경우에만 실행됩니다 (즉, 유효하지 않은 커밋 메시지가 있을 때).
         run: |
-          git remote set-url origin https://${{ secrets.SYNC_TOKEN }}@github.com/Try-AngIe/cms-plus.git
-          git push --delete origin ${{ github.ref }}
-
+          current_branch=$(echo ${{ github.ref }} | awk -F'/' '{print $3}')
+          git fetch origin
+          git reset --hard origin/$current_branch
+          git push --force origin $current_branch
