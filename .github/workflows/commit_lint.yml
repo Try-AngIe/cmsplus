@@ -1,9 +1,6 @@
 name: Commit Message Check
 
-on:
-  push:
-    branches:
-      - feat
+on: [push]
 
 jobs:
   commit_message_check:
