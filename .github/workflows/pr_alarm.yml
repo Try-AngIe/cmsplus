@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Check PR Status
         id: status
-        run: |
+        run: | #PR opened 상태: open 메시지 / closed 상태: close 메시지
           echo "::set-output name=footer::customed by 김상훈"
           if [ "${{ github.event.action }}" == "opened" ]; then
             echo "::set-output name=message::[OPEN] https://github.com/Try-AngIe/cms-plus/pulls"

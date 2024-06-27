@@ -5,8 +5,7 @@ on:
     branches:
       - dev
 
-#github actions bot에게 권한 열기
-permissions:
+permissions: #github actions bot에게 권한 열기
   contents: write
   pages: write
   id-token: write
@@ -37,7 +36,7 @@ jobs:
       run: | #dev브랜치 rel 브랜치에 merge
         git merge dev --strategy-option theirs
 
-    - name: Rel push
+    - name: Push Rel
       env:
         GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
       run: | #rel 브랜치 push
