@@ -13,7 +13,6 @@ permissions: #github actions bot에게 권한 열기
 jobs:
   prod-synchronize:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout Dev Branch
       uses: actions/checkout@v2

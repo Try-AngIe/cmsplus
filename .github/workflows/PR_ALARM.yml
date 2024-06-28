@@ -2,7 +2,7 @@ name: PR Alarm
 
 on:
   pull_request:
-    types: [opened, closed]
+    types: [ opened, closed ]
 
 jobs:
   pr-alarm:
@@ -18,7 +18,7 @@ jobs:
           elif [ "${{ github.event.action }}" == "closed" ]; then
             echo "::set-output name=message::[CLOSE] https://github.com/Try-AngIe/cms-plus/pulls"
           fi
-
+          
       - name: Push Alarm
         uses: rtCamp/action-slack-notify@master
         env:

@@ -22,7 +22,7 @@ jobs:
       id: issue-key
       with:
         from: commits
-
+        
     - name: Issue Transitioned
       if: steps.issue-key.outputs.issue != ''
       uses: atlassian/gajira-transition@master
