@@ -28,4 +28,4 @@ jobs:
       uses: atlassian/gajira-transition@master
       with:
         issue: ${{ steps.issue-key.outputs.issue }}
-        transition: "완료"
+        transition: "검토 완료"
