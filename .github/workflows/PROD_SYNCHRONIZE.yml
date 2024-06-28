@@ -29,16 +29,16 @@ jobs:
     - name: Fetch All Branches
       run: git fetch origin #원격 상태 패치
 
-    - name: Checkout Rel
-      run: git checkout -b rel origin/rel #원격 rel 브랜치 로컬에 매핑
+    - name: Checkout Prod
+      run: git checkout -b prod origin/prod #원격 prod 브랜치 로컬에 매핑
 
-    - name: Merge Dev Into Rel
-      run: | #dev브랜치 rel 브랜치에 merge
+    - name: Merge Dev Into Prod
+      run: | #dev브랜치 prod 브랜치에 merge
         git merge dev --strategy-option theirs
 
-    - name: Push Rel
+    - name: Push Prod
       env:
         GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
-      run: | #rel 브랜치 push
+      run: | #prod 브랜치 push
         git remote set-url origin https://${{ secrets.SYNC_TOKEN }}@github.com/Try-AngIe/cms-plus.git
-        git push origin rel
+        git push origin prod

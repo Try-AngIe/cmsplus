@@ -1,10 +1,12 @@
-name: Jira Trigger
+name: Dev Trigger
 
 on:
   push:
+    branches:
+      - dev
 
 jobs:
-  test-transition-issue:
+  feat-trigger:
     name: Transition Issue
     runs-on: ubuntu-latest
     steps:
@@ -15,15 +17,15 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
-    - name: Find in Jira ticket
+    - name: Find Issue Key
       uses: atlassian/gajira-find-issue-key@master
-      id: jira-ticket
+      id: issue-key
       with:
         from: commits
 
-    - name: Transition issue
-      if: steps.jira-ticket.outputs.issue != ''
+    - name: Issue Transitioned
+      if: steps.issue-key.outputs.issue != ''
       uses: atlassian/gajira-transition@master
       with:
-        issue: ${{ steps.jira-ticket.outputs.issue }}
-        transition: "검토 중"
+        issue: ${{ steps.issue-key.outputs.issue }}
+        transition: "완료"
