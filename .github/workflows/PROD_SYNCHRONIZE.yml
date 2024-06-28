@@ -1,0 +1,43 @@
+name: Prod Synchronize
+
+on:
+  push:
+    branches:
+      - dev #dev브랜치->prod브랜치
+
+permissions: #github actions bot에게 권한 열기
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  prod-synchronize:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Dev Branch
+      uses: actions/checkout@v2
+      with:
+        ref: dev
+        fetch-depth: 0 #dev브랜치 모든 history 다 참조
+
+    - name: Set Up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Fetch All Branches
+      run: git fetch origin #원격 상태 패치
+
+    - name: Checkout Prod
+      run: git checkout -b prod origin/prod #원격 prod브랜치 로컬에 매핑
+
+    - name: Merge Dev Into Prod
+      run: | #dev브랜치 prod브랜치에 merge
+        git merge dev --strategy-option theirs
+
+    - name: Push Prod
+      env:
+        GITHUB_TOKEN: ${{ secrets.SYNC_TOKEN }}
+      run: | #prod브랜치 push
+        git remote set-url origin https://${{ secrets.SYNC_TOKEN }}@github.com/Try-AngIe/cms-plus.git
+        git push origin prod

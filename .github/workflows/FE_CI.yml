@@ -1,0 +1,41 @@
+name: FE CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+    types: [ opened ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # 캐시 액션 설치
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('client/package-lock.json') }}
+      
+      # 캐싱 여부 출력
+      - if: steps.npm-cache.outputs.cache-hit == 'true'
+        run: echo 'npm cache hit!'
+      - if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: echo 'npm cache missed!'
+
+      # 캐시가 없거나 다른 경우에만 모듈 설치 -> 배포 시간 단축
+      - name: Install Dependencies
+        working-directory: client
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build Npm
+        working-directory: client
+        run: npm run build
