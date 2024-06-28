@@ -26,4 +26,4 @@ jobs:
       uses: atlassian/gajira-transition@master
       with:
         issue: ${{ steps.jira-ticket.outputs.issue }}
-        transition: "진행 중"
+        transition: "검토 중"
