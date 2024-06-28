@@ -25,4 +25,4 @@ jobs:
       run: chmod +x server/gradlew
 
     - name: Build with Gradle
-      run : ./gradlew clean build -x test
+      run : ./server/gradlew clean build -x test
