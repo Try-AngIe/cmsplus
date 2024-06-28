@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('client/package-lock.json') }}
       
       # 캐싱 여부 출력
       - if: steps.npm-cache.outputs.cache-hit == 'true'
@@ -32,8 +32,10 @@ jobs:
 
       # 캐시가 없거나 다른 경우에만 모듈 설치 -> 배포 시간 단축
       - name: Install Dependencies
+        working-directory: client
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Build Npm
+        working-directory: client
         run: npm run build
