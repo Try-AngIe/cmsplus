@@ -6,11 +6,11 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  ECR_REPOSITORY: rlatkd-ecr
-  ECS_SERVICE: rlatkdService
-  ECS_CLUSTER: rlatkdCluster
+  ECR_REPOSITORY: rlatkdecr
+  ECS_SERVICE: rlatkdservice
+  ECS_CLUSTER: rlatkdcluster
   ECS_TASK_DEFINITION: task-definition.json
-  CONTAINER_NAME: rlatkdContainer
+  CONTAINER_NAME: rlatkdcontainer
 
 permissions:
   contents: read
