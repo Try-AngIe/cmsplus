@@ -5,11 +5,12 @@ public enum PaymentMethod {
 	VIRTUAL_ACCOUNT(Values.VIRTUAL_ACCOUNT, false), BUYER(Values.BUYER, false);
 
 	private final String name;
-	private final boolean isRealTime;
+	private final boolean autoPaymentMethod;
 
-	PaymentMethod(String name, boolean isRealTime) {
+
+	PaymentMethod(String name, boolean autoPaymentMethod) {
 		this.name = name;
-		this.isRealTime = isRealTime;
+		this.autoPaymentMethod = autoPaymentMethod;
 	}
 
 	public static class Values {

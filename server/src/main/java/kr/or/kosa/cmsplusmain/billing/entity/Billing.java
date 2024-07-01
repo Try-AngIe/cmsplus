@@ -50,6 +50,16 @@ public class Billing extends BaseTimeEntity implements RemovableEntity {
 	@Setter
 	private String memo;
 
+	@Comment("수납 기간 - 시작일")
+	@Column(name = "BILLING_START_DATE", nullable = false)
+	@NotNull
+	private LocalDate billingStartDate;
+
+	@Comment("수납 기간 - 종료일")
+	@Column(name = "BILLING_END_DATE", nullable = false)
+	@NotNull
+	private LocalDate billingEndDate;
+
 	/* 청구 상품 목록 */
 	@OneToMany(mappedBy = "billing", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<BillingProduct> billingProducts;

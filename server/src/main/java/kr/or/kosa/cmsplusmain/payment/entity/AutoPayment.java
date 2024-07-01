@@ -20,7 +20,6 @@ import lombok.Setter;
 @Table(name = "AUTO_PAYMENT")
 @DiscriminatorValue(PaymentType.Values.AUTO)
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "AUTO_PAYMENT_METHOD")
 @Getter
 public class AutoPayment extends Payment {
 

@@ -66,16 +66,6 @@ public class BillingStandard extends BaseTimeEntity implements RemovableEntity {
 	@Size(min = 1, max = 12)
 	private int billingMonth;
 
-	@Comment("청구 기간 - 시작일")
-	@Column(name = "BILLING_STANDARD_START_DATE", nullable = false)
-	@NotNull
-	private LocalDate billingStartDate;
-
-	@Comment("청구 기간 - 종료일")
-	@Column(name = "BILLING_STANDARD_END_DATE", nullable = false)
-	@NotNull
-	private LocalDate billingEndDate;
-
 	/* 청구 설정 삭제 */
 	@Override
 	public void remove() {
