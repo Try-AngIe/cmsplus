@@ -21,4 +21,9 @@ public class VendorController {
 	public List<VendorDto> getAllVendors() {
 		return vendorService.findAll();
 	}
+
+	@GetMapping("/test")
+	public String test() {
+		return "hello world";
+	}
 }
