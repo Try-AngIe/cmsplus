@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdtask:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdtask:6",
     "containerDefinitions": [
         {
             "name": "rlatkdcontainer",
@@ -36,7 +36,7 @@
     "family": "rlatkdtask",
     "executionRoleArn": "arn:aws:iam::457625770137:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 6,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -79,7 +79,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-07-01T08:12:22.597Z",
+    "registeredAt": "2024-07-01T23:00:57.710Z",
     "registeredBy": "arn:aws:iam::457625770137:root",
     "tags": []
 }
