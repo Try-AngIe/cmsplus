@@ -2,25 +2,31 @@
 
 2. cd cms-plus
 
+3. docker-compose up (--build) 해서 MySQL 컨테이너를 띄움
+
 3. git fetch
 
-4. git checkout -b dev origin/dev
+4. git checkout -b prod origin/prod
 
-5. git branch feat/도메인1
+5. git checkout main
 
-6. git checkout feat/도메인1
+6. git checkout -b dev origin/dev
 
-7. 작업시작
+7. git branch feat/원하는이름1
 
-8. git commit -m "[Jira 이슈 ID] 브랜치명(수정 도메인): 구현내용"
+8. git checkout feat/원하는이름1
 
-9. 작업끝(모든 커밋 끝)
+9. 작업시작
 
-10. git push origin feat/도메인1
+10. git commit -m "[Jira 이슈 ID] 브랜치명(수정 도메인): 구현내용"
 
-11. git checkout dev
+11. 작업끝(모든 커밋 끝)
 
-12. git branch feat/도메인2
+12. git push origin feat/원하는이름1
+
+13. git checkout dev
+
+14. git branch feat/원하는이름2
 
 ...이하동일
 
