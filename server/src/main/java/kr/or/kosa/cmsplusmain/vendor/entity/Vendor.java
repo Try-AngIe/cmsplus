@@ -88,24 +88,6 @@ public class Vendor extends BaseTimeEntity {
 	@NotBlank
 	private String department;
 
-	/************ 간편동의 설정 ************/
-
-	/*간편동의 설정 결제수단*/
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "SIMPCONSENT_VENDOR_PAYMENT",
-		joinColumns = @JoinColumn(name = "VENDOR_ID"),
-		inverseJoinColumns = @JoinColumn(name = "PAYMENT_ID")
-	)
-	private Set<Payment> simpConsentPayments = new HashSet<>();
-
-	/*간편동의 설정 상품*/
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "SIMPCONSENT_VENDOR_PRODUCT",
-		joinColumns = @JoinColumn(name = "VENDOR_ID"),
-		inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-	)
-	private Set<Product> simpConsentProducts = new HashSet<>();
-
 	/************ 회원 ************/
 
 	/*고객이 등록한 회원목록*/

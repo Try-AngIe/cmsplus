@@ -76,6 +76,16 @@ public class Contract extends BaseTimeEntity implements RemovableEntity {
 	@NotNull
 	private Payment payment;
 
+	@Comment("계약 기간 - 시작일")
+	@Column(name = "CONTRACT_START_DATE", nullable = false)
+	@NotNull
+	private LocalDate contractStartDate;
+
+	@Comment("계약 기간 - 종료일")
+	@Column(name = "CONTRACT_END_DATE", nullable = false)
+	@NotNull
+	private LocalDate contractEndDate;
+
 	/* 계약한 상품 목록 */
 	@OneToMany(mappedBy = "contract", fetch = FetchType.LAZY)
 	private List<ContractProduct> contractProducts = new ArrayList<>();
