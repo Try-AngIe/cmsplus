@@ -1,15 +1,15 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdTask0:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdtask:1",
     "containerDefinitions": [
         {
-            "name": "rlatkdContainer",
-            "image": "457625770137.dkr.ecr.ap-northeast-2.amazonaws.com/rlatkd-ecr:latest",
+            "name": "rlatkdcontainer",
+            "image": "457625770137.dkr.ecr.ap-northeast-2.amazonaws.com/rlatkdecr:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "rlatkdcontainer-80-tcp",
-                    "containerPort": 80,
-                    "hostPort": 80,
+                    "name": "rlatkdcontainer-8080-tcp",
+                    "containerPort": 8080,
+                    "hostPort": 8080,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
@@ -23,7 +23,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/rlatkdTask0",
+                    "awslogs-group": "/ecs/rlatkdtask",
                     "awslogs-create-group": "true",
                     "awslogs-region": "ap-northeast-2",
                     "awslogs-stream-prefix": "ecs"
@@ -33,7 +33,7 @@
             "systemControls": []
         }
     ],
-    "family": "rlatkdTask0",
+    "family": "rlatkdtask",
     "executionRoleArn": "arn:aws:iam::457625770137:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "revision": 1,
@@ -79,7 +79,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-07-01T07:40:01.202Z",
+    "registeredAt": "2024-07-01T08:12:22.597Z",
     "registeredBy": "arn:aws:iam::457625770137:root",
     "tags": []
 }
