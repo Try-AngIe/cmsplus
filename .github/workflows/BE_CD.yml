@@ -8,7 +8,7 @@ env:
   AWS_REGION: ap-northeast-2
   ECR_REPOSITORY: rlatkd-ecr
   ECS_SERVICE: rlatkdService
-  ECS_CLUSTER: rlatkdCluster3
+  ECS_CLUSTER: rlatkdCluster
   ECS_TASK_DEFINITION: task-definition.json
   CONTAINER_NAME: rlatkdContainer
 

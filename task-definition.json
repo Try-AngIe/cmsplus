@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdTask:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:457625770137:task-definition/rlatkdTask0:1",
     "containerDefinitions": [
         {
             "name": "rlatkdContainer",
@@ -23,7 +23,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/rlatkdTask",
+                    "awslogs-group": "/ecs/rlatkdTask0",
                     "awslogs-create-group": "true",
                     "awslogs-region": "ap-northeast-2",
                     "awslogs-stream-prefix": "ecs"
@@ -33,10 +33,10 @@
             "systemControls": []
         }
     ],
-    "family": "rlatkdTask",
+    "family": "rlatkdTask0",
     "executionRoleArn": "arn:aws:iam::457625770137:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -79,7 +79,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-07-01T05:50:59.430Z",
+    "registeredAt": "2024-07-01T07:40:01.202Z",
     "registeredBy": "arn:aws:iam::457625770137:root",
     "tags": []
 }
